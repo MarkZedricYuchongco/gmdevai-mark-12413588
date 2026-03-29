@@ -28,18 +28,14 @@ public class TravelForwardToGoal : MonoBehaviour
 
     private void LateUpdate()
     {
-        // 1. Calculate the target direction (ignoring Y for level movement)
         Vector3 lookAtGoal = new Vector3(goal.position.x, transform.position.y, goal.position.z);
         Vector3 targetDirection = (lookAtGoal - transform.position).normalized;
 
-        // 2. Use Vector3.Lerp to smoothly transition the current 'forward' vector 
-        // toward the 'target' direction vector.
         if (targetDirection != Vector3.zero)
         {
             transform.forward = Vector3.Lerp(transform.forward, targetDirection, rotSpeed * Time.deltaTime);
         }
 
-        // 3. Movement logic remains the same
         if (Vector3.Distance(lookAtGoal, transform.position) > distanceToGoal)
         {
             currentSpeed = Mathf.MoveTowards(currentSpeed, maxSpeed, accel * Time.deltaTime);
